@@ -84,6 +84,16 @@
 ;; fns - colors and effects
 ;;
 
+(defn wait [ms]
+   ;;Sleeps for ms milliseconds, works during repeats but not during repeats in figwheel
+     (letfn [(getTime [] 
+        #?(:clj  (System/currentTimeMillis)
+           :cljs (.getTime (js/Date.))))]
+           (let [initialTime (getTime)]
+                 (while (< (getTime) (+ initialTime ms))
+                 ;;do nothing
+                 ))))
+
 (defn color
   "Set the turtle's color using [red green blue].
   RGB values are in the range 0 to 255, inclusive."
